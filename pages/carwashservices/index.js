@@ -1,7 +1,9 @@
+import Layout from '../../components/Layout';
+
 export default function ServicesPage() {
   return (
-    <div>
+    <Layout>
       <h1>Услуги</h1>
-    </div>
+    </Layout>
   );
 }
