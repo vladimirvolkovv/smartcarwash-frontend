@@ -2,22 +2,26 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from '@/styles/ServiceItem.module.css';
 
-export default function ServiceItem({ evt }) {
+export default function ServiceItem({ serv }) {
   return (
     <div className={styles.event}>
       <div className={styles.img}>
-        <Image src={evt.image ? evt.image : '/images/event-default.png'} width={170} height={100} />
+        <Image
+          src={serv.image ? serv.image.formats.thumbnail.url : '/images/event-default.png'}
+          width={170}
+          height={100}
+        />
       </div>
       <div className={styles.info}>
-        <span>
-          {evt.date} at {evt.time}
-        </span>
-        <h3>{evt.name}</h3>
+        <h3>{serv.name}</h3>
+        <h4>{serv.price} ₽ </h4>
+        <span>Время выполнения: {serv.time} минут</span>
       </div>
       <div className={styles.link}>
-        <Link href={`/carwashservices/${evt.slug}`}>
+        <Link href={`/carwashservices/${serv.slug}`}>
           <a className='btn'>Подробности</a>
         </Link>
+        <a className='btn'>Добавить в заказ</a>
       </div>
     </div>
   );

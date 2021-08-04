@@ -3,17 +3,17 @@ import Layout from '@/components/Layout';
 import ServiceItem from '@/components/ServiceItem';
 import { API_URL } from '@/config/index';
 
-export default function Home({ events }) {
+export default function Home({ services }) {
   return (
     <Layout>
-      <h1>Лучшие предложения автомойки здесь!</h1>
+      <h1>Популярные услуги</h1>
 
-      {events.length === 0 && <h3>В данный момент нет акционных предложений!</h3>}
-      {events.map((el) => {
-        return <ServiceItem key={el.id} evt={el} />;
+      {services.length === 0 && <h3>В данный момент нет акционных предложений!</h3>}
+      {services.map((el) => {
+        return <ServiceItem key={el.id} serv={el} />;
       })}
 
-      {events.length > 0 && (
+      {services.length > 0 && (
         <Link href='/carwashservices'>
           <a className='btn-secondary'>Посмотреть все предложения</a>
         </Link>
@@ -23,11 +23,11 @@ export default function Home({ events }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/carwashservices`);
-  const events = await res.json();
+  const res = await fetch(`${API_URL}/services?_sort=date:ASC&_limit=3`);
+  const services = await res.json();
 
   return {
-    props: { events: events.slice(3) },
+    props: { services: services },
     revalidate: 1,
   };
 }
